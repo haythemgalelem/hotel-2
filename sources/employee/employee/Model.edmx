@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="hotelModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="hotelModelStoreContainer">
+          <EntitySet Name="booking" EntityType="hotelModel.Store.booking" store:Type="Tables" store:Schema="dbo" store:Name="booking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [booking].[by_customer_email] AS [by_customer_email], 
+      [booking].[in_hotel_hid] AS [in_hotel_hid], 
+      [booking].[at] AS [at], 
+      [booking].[duration] AS [duration], 
+      [booking].[roomNr] AS [roomNr], 
+      [booking].[numAdults] AS [numAdults], 
+      [booking].[numChilds] AS [numChilds]
+      FROM [dbo].[booking] AS [booking]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="customer" EntityType="hotelModel.Store.customer" store:Type="Tables" store:Schema="dbo" store:Name="customer" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [customer].[email] AS [email], 
+      [customer].[pwd] AS [pwd], 
+      [customer].[name] AS [name], 
+      [customer].[adr] AS [adr], 
+      [customer].[tel] AS [tel]
+      FROM [dbo].[customer] AS [customer]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="hotel" EntityType="hotelModel.Store.hotel" store:Type="Tables" store:Schema="dbo" store:Name="hotel" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [hotel].[hid] AS [hid], 
+      [hotel].[name] AS [name], 
+      [hotel].[adr] AS [adr]
+      FROM [dbo].[hotel] AS [hotel]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hotel.dbo.booking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="by_customer_email" />
+            <PropertyRef Name="in_hotel_hid" />
+            <PropertyRef Name="at" />
+            <PropertyRef Name="duration" />
+            <PropertyRef Name="roomNr" />
+            <PropertyRef Name="numAdults" />
+            <PropertyRef Name="numChilds" />
+          </Key>
+          <Property Name="by_customer_email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="in_hotel_hid" Type="int" Nullable="false" />
+          <Property Name="at" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="duration" Type="int" Nullable="false" />
+          <Property Name="roomNr" Type="int" Nullable="false" />
+          <Property Name="numAdults" Type="int" Nullable="false" />
+          <Property Name="numChilds" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hotel.dbo.customer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="pwd" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="adr" />
+            <PropertyRef Name="tel" />
+          </Key>
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="pwd" Type="varchar" Nullable="false" MaxLength="24" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="adr" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="tel" Type="numeric" Nullable="false" Precision="16" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'hotel.dbo.hotel' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="hid" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="adr" />
+          </Key>
+          <Property Name="hid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="adr" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="hotelModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="hotelEntities">
+          <EntitySet Name="booking" EntityType="hotelModel.booking" />
+          <EntitySet Name="customer" EntityType="hotelModel.customer" />
+          <EntitySet Name="hotel" EntityType="hotelModel.hotel" />
+        </EntityContainer>
+        <EntityType Name="booking">
+          <Key>
+            <PropertyRef Name="by_customer_email" />
+            <PropertyRef Name="in_hotel_hid" />
+            <PropertyRef Name="at" />
+            <PropertyRef Name="duration" />
+            <PropertyRef Name="roomNr" />
+            <PropertyRef Name="numAdults" />
+            <PropertyRef Name="numChilds" />
+          </Key>
+          <Property Name="by_customer_email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="in_hotel_hid" Type="Int32" Nullable="false" />
+          <Property Name="at" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="duration" Type="Int32" Nullable="false" />
+          <Property Name="roomNr" Type="Int32" Nullable="false" />
+          <Property Name="numAdults" Type="Int32" Nullable="false" />
+          <Property Name="numChilds" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="email" />
+            <PropertyRef Name="pwd" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="adr" />
+            <PropertyRef Name="tel" />
+          </Key>
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="pwd" Type="String" Nullable="false" MaxLength="24" Unicode="false" FixedLength="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="adr" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="tel" Type="Decimal" Nullable="false" Precision="16" Scale="0" />
+        </EntityType>
+        <EntityType Name="hotel">
+          <Key>
+            <PropertyRef Name="hid" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="adr" />
+          </Key>
+          <Property Name="hid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="adr" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="hotelModelStoreContainer" CdmEntityContainer="hotelEntities">
+          <EntitySetMapping Name="booking"><EntityTypeMapping TypeName="hotelModel.booking"><MappingFragment StoreEntitySet="booking">
+            <ScalarProperty Name="by_customer_email" ColumnName="by_customer_email" />
+            <ScalarProperty Name="in_hotel_hid" ColumnName="in_hotel_hid" />
+            <ScalarProperty Name="at" ColumnName="at" />
+            <ScalarProperty Name="duration" ColumnName="duration" />
+            <ScalarProperty Name="roomNr" ColumnName="roomNr" />
+            <ScalarProperty Name="numAdults" ColumnName="numAdults" />
+            <ScalarProperty Name="numChilds" ColumnName="numChilds" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="customer"><EntityTypeMapping TypeName="hotelModel.customer"><MappingFragment StoreEntitySet="customer">
+            <ScalarProperty Name="email" ColumnName="email" />
+            <ScalarProperty Name="pwd" ColumnName="pwd" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="adr" ColumnName="adr" />
+            <ScalarProperty Name="tel" ColumnName="tel" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="hotel"><EntityTypeMapping TypeName="hotelModel.hotel"><MappingFragment StoreEntitySet="hotel">
+            <ScalarProperty Name="hid" ColumnName="hid" />
+            <ScalarProperty Name="name" ColumnName="name" />
+            <ScalarProperty Name="adr" ColumnName="adr" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model">
+        <EntityTypeShape EntityType="hotelModel.booking" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelModel.customer" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="hotelModel.hotel" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

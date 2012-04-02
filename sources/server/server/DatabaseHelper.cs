@@ -50,12 +50,12 @@ namespace server
             if (reader.Read())
             {
                 reader.Close();
-                command = new SqlCommand("SELECT email FROM customer WHERE email = @email and pwd = @pwd", con);
-                command.Parameters.AddWithValue("@email", Email);
-                command.Parameters.AddWithValue("@pwd", Pwd);
-                reader = command.ExecuteReader();
+                SqlCommand command_validate = new SqlCommand("SELECT email FROM customer WHERE email = @email and pwd = @pwd", con);
+                command_validate.Parameters.AddWithValue("@email", Email);
+                command_validate.Parameters.AddWithValue("@pwd", Pwd);
+                SqlDataReader validate_reader = command_validate.ExecuteReader();
 
-                if (reader.Read())
+                if (validate_reader.Read())
                 {
                     return_code = 1;
                 }
@@ -63,20 +63,20 @@ namespace server
                 {
                     return_code = 0;
                 }
-                reader.Close();
+                validate_reader.Close();
             }
             else if (Email.Equals(Pwd))
             {
                 reader.Close();
-                command = new SqlCommand("SELECT hid FROM hotel WHERE hid = @hid", con);
-                command.Parameters.AddWithValue("@hid", Email);
-                reader = command.ExecuteReader();
+                SqlCommand command_hotel_auth = new SqlCommand("SELECT hid FROM hotel WHERE hid = @hid", con);
+                command_hotel_auth.Parameters.AddWithValue("@hid", Email);
+                SqlDataReader command_hotel_auth_reader = command_hotel_auth.ExecuteReader();
 
-                if (reader.Read())
+                if (command_hotel_auth_reader.Read())
                 {
                     return_code = 3;
                 }
-                reader.Close();
+                command_hotel_auth_reader.Close();
             }
 
 
