@@ -29,7 +29,7 @@ namespace employee
         {
             ServerSoapClient serv = new ServerSoapClient();
             
-            int auth = serv.Authenticate(hid.Text, pwd.Text);
+            int auth = serv.Authenticate(hid.Text, pwd.Password);
 
             if (auth == 3)
             {

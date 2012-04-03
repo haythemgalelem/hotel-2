@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
   <publishProfile publishUrl="http://localhost/hotel" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
-    <file relUrl="bin/server.dll" publishTime="04/02/2012 18:10:03" />
-    <file relUrl="bin/server.pdb" publishTime="04/02/2012 18:10:03" />
+    <file relUrl="bin/server.dll" publishTime="04/03/2012 09:44:21" />
+    <file relUrl="bin/server.pdb" publishTime="04/03/2012 09:44:21" />
     <file relUrl="Server.asmx" publishTime="04/02/2012 17:08:55" />
     <file relUrl="Web.config" publishTime="04/02/2012 17:53:48" />
   </publishProfile>

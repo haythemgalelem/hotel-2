@@ -24,31 +24,34 @@ namespace employee
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class hotelEntities : ObjectContext
+    public partial class HotelEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new hotelEntities object using the connection string found in the 'hotelEntities' section of the application configuration file.
+        /// Initializes a new HotelEntities object using the connection string found in the 'HotelEntities' section of the application configuration file.
         /// </summary>
-        public hotelEntities() : base("name=hotelEntities", "hotelEntities")
+        public HotelEntities() : base("name=HotelEntities", "HotelEntities")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new hotelEntities object.
+        /// Initialize a new HotelEntities object.
         /// </summary>
-        public hotelEntities(string connectionString) : base(connectionString, "hotelEntities")
+        public HotelEntities(string connectionString) : base(connectionString, "HotelEntities")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new hotelEntities object.
+        /// Initialize a new HotelEntities object.
         /// </summary>
-        public hotelEntities(EntityConnection connection) : base(connection, "hotelEntities")
+        public HotelEntities(EntityConnection connection) : base(connection, "HotelEntities")
         {
+            this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
@@ -148,7 +151,7 @@ namespace employee
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="hotelModel", Name="booking")]
+    [EdmEntityTypeAttribute(NamespaceName="HotelModel", Name="booking")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class booking : EntityObject
@@ -377,7 +380,7 @@ namespace employee
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="hotelModel", Name="customer")]
+    [EdmEntityTypeAttribute(NamespaceName="HotelModel", Name="customer")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class customer : EntityObject
@@ -548,7 +551,7 @@ namespace employee
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="hotelModel", Name="hotel")]
+    [EdmEntityTypeAttribute(NamespaceName="HotelModel", Name="hotel")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class hotel : EntityObject

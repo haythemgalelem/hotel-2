@@ -4,9 +4,9 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="hotelModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="hotelModelStoreContainer">
-          <EntitySet Name="booking" EntityType="hotelModel.Store.booking" store:Type="Tables" store:Schema="dbo" store:Name="booking" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+      <Schema Namespace="HotelModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="HotelModelStoreContainer">
+          <EntitySet Name="booking" EntityType="HotelModel.Store.booking" store:Type="Tables" store:Schema="dbo" store:Name="booking">
             <DefiningQuery>SELECT 
       [booking].[by_customer_email] AS [by_customer_email], 
       [booking].[in_hotel_hid] AS [in_hotel_hid], 
@@ -17,7 +17,7 @@
       [booking].[numChilds] AS [numChilds]
       FROM [dbo].[booking] AS [booking]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="customer" EntityType="hotelModel.Store.customer" store:Type="Tables" store:Schema="dbo" store:Name="customer" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="customer" EntityType="HotelModel.Store.customer" store:Type="Tables" store:Schema="dbo" store:Name="customer">
             <DefiningQuery>SELECT 
       [customer].[email] AS [email], 
       [customer].[pwd] AS [pwd], 
@@ -26,7 +26,7 @@
       [customer].[tel] AS [tel]
       FROM [dbo].[customer] AS [customer]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="hotel" EntityType="hotelModel.Store.hotel" store:Type="Tables" store:Schema="dbo" store:Name="hotel" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+          <EntitySet Name="hotel" EntityType="HotelModel.Store.hotel" store:Type="Tables" store:Schema="dbo" store:Name="hotel">
             <DefiningQuery>SELECT 
       [hotel].[hid] AS [hid], 
       [hotel].[name] AS [name], 
@@ -89,11 +89,11 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="hotelModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="hotelEntities">
-          <EntitySet Name="booking" EntityType="hotelModel.booking" />
-          <EntitySet Name="customer" EntityType="hotelModel.customer" />
-          <EntitySet Name="hotel" EntityType="hotelModel.hotel" />
+      <Schema Namespace="HotelModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="booking" EntityType="HotelModel.booking" />
+          <EntitySet Name="customer" EntityType="HotelModel.customer" />
+          <EntitySet Name="hotel" EntityType="HotelModel.hotel" />
         </EntityContainer>
         <EntityType Name="booking">
           <Key>
@@ -133,7 +133,7 @@
             <PropertyRef Name="name" />
             <PropertyRef Name="adr" />
           </Key>
-          <Property Name="hid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="hid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="adr" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
         </EntityType>
@@ -142,8 +142,8 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="hotelModelStoreContainer" CdmEntityContainer="hotelEntities">
-          <EntitySetMapping Name="booking"><EntityTypeMapping TypeName="hotelModel.booking"><MappingFragment StoreEntitySet="booking">
+        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities">
+          <EntitySetMapping Name="booking"><EntityTypeMapping TypeName="HotelModel.booking"><MappingFragment StoreEntitySet="booking">
             <ScalarProperty Name="by_customer_email" ColumnName="by_customer_email" />
             <ScalarProperty Name="in_hotel_hid" ColumnName="in_hotel_hid" />
             <ScalarProperty Name="at" ColumnName="at" />
@@ -152,14 +152,14 @@
             <ScalarProperty Name="numAdults" ColumnName="numAdults" />
             <ScalarProperty Name="numChilds" ColumnName="numChilds" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="customer"><EntityTypeMapping TypeName="hotelModel.customer"><MappingFragment StoreEntitySet="customer">
+          <EntitySetMapping Name="customer"><EntityTypeMapping TypeName="HotelModel.customer"><MappingFragment StoreEntitySet="customer">
             <ScalarProperty Name="email" ColumnName="email" />
             <ScalarProperty Name="pwd" ColumnName="pwd" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="adr" ColumnName="adr" />
             <ScalarProperty Name="tel" ColumnName="tel" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="hotel"><EntityTypeMapping TypeName="hotelModel.hotel"><MappingFragment StoreEntitySet="hotel">
+          <EntitySetMapping Name="hotel"><EntityTypeMapping TypeName="HotelModel.hotel"><MappingFragment StoreEntitySet="hotel">
             <ScalarProperty Name="hid" ColumnName="hid" />
             <ScalarProperty Name="name" ColumnName="name" />
             <ScalarProperty Name="adr" ColumnName="adr" />
@@ -179,15 +179,15 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model">
-        <EntityTypeShape EntityType="hotelModel.booking" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
-        <EntityTypeShape EntityType="hotelModel.customer" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="hotelModel.hotel" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.booking" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.customer" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelModel.hotel" Width="1.5" PointX="2.75" PointY="3.75" Height="1.5956835937499996" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

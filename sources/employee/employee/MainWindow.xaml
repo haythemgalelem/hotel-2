@@ -7,6 +7,6 @@
         <Label Content="Hotel ID:" Height="28" HorizontalAlignment="Left" Margin="60,52,0,0" Name="label1" VerticalAlignment="Top" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="62,94,0,0" Name="textBlock1" Text="Kennung:" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="138,54,0,0" Name="hid" VerticalAlignment="Top" Width="176" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="138,91,0,0" Name="pwd" VerticalAlignment="Top" Width="176" DataContext="{Binding}" />
+        <PasswordBox Height="23" HorizontalAlignment="Left" Margin="138,94,0,0" Name="pwd" VerticalAlignment="Top" Width="176" />
     </Grid>
 </Window>
