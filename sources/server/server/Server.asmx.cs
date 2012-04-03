@@ -26,6 +26,10 @@ namespace server
         [WebMethod]
         public int Authenticate(String email, String pwd)
         {
+            if (email == null &&  pwd == null)
+            {
+                throw new Exception("WHY?");
+            }
             return db.Authenticate(email, pwd);
         }
 

@@ -18,7 +18,8 @@ namespace server
             con =  new SqlConnection("Data Source=" + Environment.GetEnvironmentVariable("HOTEL_DB_ADDR")
                   + ";Initial Catalog=" + Environment.GetEnvironmentVariable("HOTEL_DB_NAME")
                   + ";User Id=" + Environment.GetEnvironmentVariable("HOTEL_DB_USER")
-                  + ";Password=" + Environment.GetEnvironmentVariable("HOTEL_DB_PWD"));
+                  + ";Password=" + Environment.GetEnvironmentVariable("HOTEL_DB_PWD")
+                  + ";MultipleActiveResultSets=True;");
             //con = new SqlConnection("Initial Catalog=hotel;Data Source=localhost;Integrated Security=SSPI;");
             
             con.Open();
@@ -71,15 +72,20 @@ namespace server
             }
             else if (Email.Equals(Pwd))
             {
-                command = new SqlCommand("SELECT hid FROM hotel WHERE hid = @hid", con);
-                command.Parameters.AddWithValue("@hid", Email);
-                reader.Close();
-                reader = command.ExecuteReader();
-
-                if (reader.Read())
+                try
                 {
-                    return_code = 3;
+                    command = new SqlCommand("SELECT hid FROM hotel WHERE hid = @hid", con);
+                    command.Parameters.AddWithValue("@hid", Email.ToString());
+                    reader.Close();
+                    reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        return_code = 3;
+                    }
                 }
+                catch (Exception ignore) { }
+                // Faced this Exception when typing "test" and "test", these two are equal but not numeric
             }
             reader.Close();
             return return_code;
