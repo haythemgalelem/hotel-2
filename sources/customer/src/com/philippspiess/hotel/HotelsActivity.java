@@ -58,8 +58,8 @@ public class HotelsActivity extends Activity {
 					APIHelper.current_hotel = list.get(arg2);
 					Log.w("log", "Click = " + APIHelper.current_hotel.toString());
 					
-					//Intent i = new Intent(BookingsActivity.this, BookingActivity.class);
-	    			//startActivity(i);
+					Intent i = new Intent(HotelsActivity.this, NewBookingActivity.class);
+	    			startActivity(i);
 				}
 			}
 		});

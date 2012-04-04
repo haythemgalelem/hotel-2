@@ -187,4 +187,40 @@ public class APIHelper {
 	
 	
 	
+	public static boolean NewBooking(String at, int duration, int roomNr, int numAdults, int numChilds) {
+		SoapObject req = new SoapObject(NAMESPACE, "NewBooking");
+		req.addProperty("email", auth_email );
+		req.addProperty("hid", current_hotel.Hid);
+		req.addProperty("at", at);
+		req.addProperty("duration", duration);
+		req.addProperty("roomNr", roomNr);
+		req.addProperty("numAdults", numAdults);
+		req.addProperty("numChilds", numChilds);
+		
+		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;	
+        envelope.setOutputSoapObject(req);
+        
+        try
+        {
+        	HttpTransportSE t = new HttpTransportSE(URL);
+            
+            t.call(NAMESPACE + "NewBooking", envelope);
+            SoapPrimitive response = (SoapPrimitive)envelope.getResponse();            
+            boolean result = Boolean.parseBoolean(response.toString());
+
+        	Log.w("Log", "Result = " + result);
+            
+            return result;
+        }
+        catch(Exception e)
+        {
+        	Log.w("Log", e.toString());
+        	
+            e.printStackTrace();
+            return false;
+        }
+	}
+	
+	
 }

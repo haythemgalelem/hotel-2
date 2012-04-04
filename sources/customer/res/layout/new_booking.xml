@@ -15,94 +15,98 @@
             android:text="Hotel Name" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/newBooking_hotel_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large Text"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Hotel Address" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/newBooking_hotel_adr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Large Text"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Date" />
 
-        <EditText
-            android:id="@+id/editText1"
+        <DatePicker
+            android:id="@+id/newBooking_at"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date" >
-
-            <requestFocus />
-        </EditText>
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-
+            android:text="Duration (Days)" />
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/newBooking_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="1">
+        </EditText>
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Room Nr" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/newBooking_roomNr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number" 
+            android:text="1"/>
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="numAdults" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/newBooking_numAdults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number" 
+            android:text="0"/>
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="numChilds" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/newBooking_numChilds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number" 
+            android:text="0"/>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        	android:onClick="newBooking"
+            android:text="Save Booking" />
 
     </LinearLayout>
-    
-
 </ScrollView>
