@@ -4,7 +4,9 @@ import com.philippspiess.hotel.api.APIHelper;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,11 +16,16 @@ import android.widget.EditText;
 
 public class CustomerActivity extends Activity {
 	
-	private APIHelper api = new APIHelper();
+	private ProgressDialog loading = null;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
+			
+			if(loading != null) {
+				loading.dismiss();
+				loading = null;
+			}
 			
 			if(msg.what == 0 || msg.what == 3) {
 				errorDialog("Wrong password (or internal error)");
@@ -28,13 +35,21 @@ public class CustomerActivity extends Activity {
 		    	alert.setIcon(R.drawable.ic_launcher);
 		    	alert.setButton("Create Account", new DialogInterface.OnClickListener() {
 		    		public void onClick(DialogInterface dialog, int which) {
-		    			dialog.cancel();
+		    	    	EditText e_email = (EditText) findViewById(R.id.editText1);
+		    			RegisterActivity.email = e_email.getText().toString();
+		    			
+		    			Intent i = new Intent(CustomerActivity.this, RegisterActivity.class);
+		    			startActivity(i);
 		    		}
 		    	}); 
 		    	alert.setMessage("Do you want to register an account?");
 		    	alert.show();
 			} else {
-				errorDialog("success");
+    	    	EditText e_email = (EditText) findViewById(R.id.editText1);
+    			APIHelper.auth_email = e_email.getText().toString();
+				
+				Intent i = new Intent(CustomerActivity.this, BookingsActivity.class);
+				startActivity(i);
 			}
 		}
 	};
@@ -46,6 +61,14 @@ public class CustomerActivity extends Activity {
         // I'm just lazy
     	EditText e_email = (EditText) this.findViewById(R.id.editText1);
     	e_email.setText("hello@philippspiess.com");
+    	
+    	EditText e_pwd = (EditText) this.findViewById(R.id.editText2);
+    	e_pwd.setText("test");
+    }
+    
+    public void register(View view) {
+		Intent i = new Intent(CustomerActivity.this, RegisterActivity.class);
+		startActivity(i);
     }
     
     public void login(View view) {
@@ -57,9 +80,15 @@ public class CustomerActivity extends Activity {
     	final String password = e_password.getText().toString();
     	
     	if(email.length() > 0 && password.length() > 0) {
+    		
+    		loading = new ProgressDialog(CustomerActivity.this);
+    		loading.setTitle("Loading...");
+    		loading.setMessage("Please wait while we're fetching your data.");
+    		loading.show();
+    		
     		new Thread(new Runnable() {
     			public void run() {
-    				int code = api.Authenticate(email, password);
+    				int code = APIHelper.Authenticate(email, password);
     				// Create a new Message and post it to the queue!
     				Message m = new Message();
     				m.what = code;

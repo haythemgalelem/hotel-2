@@ -50,5 +50,12 @@ namespace server
         {
             return db.NewBooking(email, hid, at, duration, roomNr, numAdults, numChilds);
         }
+
+
+        [WebMethod]
+        public List<Hotel> ListHotels()
+        {
+            return db.ListHotels();
+        }
     }
 }

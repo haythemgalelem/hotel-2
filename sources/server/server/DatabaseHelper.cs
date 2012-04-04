@@ -128,12 +128,12 @@ namespace server
 
             while (reader.Read())
             {
-                list.Add(new Booking(
+                Booking b = new Booking(
                         new Customer(
-                            (String)reader[0],
-                            (String)reader[1],
-                            (String)reader[2],
-                            (int)reader[3]
+                            (String)reader["email"],
+                            (String)reader["name"],
+                            (String)reader["adr"],
+                            (Decimal)reader["tel"]
                         ),
                         new Hotel(
                             (int)reader[9],
@@ -145,12 +145,34 @@ namespace server
                         (int)reader[6],
                         (int)reader[7],
                         (int)reader[8]
-                    ));
+                    ); 
+
+                list.Add(b);
             }
 
             reader.Close();
             return list;
         }
+
+        public List<Hotel> ListHotels()
+        {
+            List<Hotel> list = new List<Hotel>();
+            SqlCommand command = new SqlCommand("SELECT hid, name, adr FROM hotel", con);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new Hotel(
+                            (int)reader[0],
+                            (String)reader[1],
+                            (String)reader[2]
+                        ));
+            }
+
+            reader.Close();
+            return list;
+        }
+
 
         public bool NewBooking(String email, int hid, String at, int duration, int roomNr, int numAdults, int numChilds)
         {
