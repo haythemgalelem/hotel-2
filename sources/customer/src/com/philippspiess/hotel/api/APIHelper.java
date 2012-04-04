@@ -13,6 +13,8 @@ public class APIHelper {
 	public static String URL = "http://192.168.2.110/hotel/Server.asmx";
 	
 	public static String auth_email = null; // will be set when logged in
+	public static Booking current_booking = null;
+	public static Hotel current_hotel = null;
 	
 	public static int Authenticate(String email, String password) {
 		SoapObject req = new SoapObject(NAMESPACE, "Authenticate");
@@ -91,6 +93,10 @@ public class APIHelper {
 	            booking.Customer = customer;
 	            booking.Hotel = hotel;
 	            booking.At = pii.getPropertyAsString(2);
+	            booking.Duration = Integer.parseInt(pii.getPropertyAsString(3));
+	            booking.RoomNr = Integer.parseInt(pii.getPropertyAsString(4));
+	            booking.NumAdults = Integer.parseInt(pii.getPropertyAsString(5));
+	            booking.NumChilds = Integer.parseInt(pii.getPropertyAsString(6));
 	            
 	            //Log.w("log", booking.toString());
 	            
@@ -106,7 +112,46 @@ public class APIHelper {
 		return list;
 	}
 	
+	public static ArrayList<Hotel> ListHotels() {
+		ArrayList<Hotel> list = new ArrayList<Hotel>();
+		
+		try {
+			SoapObject req = new SoapObject(NAMESPACE, "ListHotels");
+			
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+	        envelope.dotNet = true;	
+	        envelope.setOutputSoapObject(req);
+	        envelope.addMapping(NAMESPACE, "Booking", Booking.class);
+	        envelope.addMapping(NAMESPACE, "Hotel", Hotel.class);
+	        envelope.addMapping(NAMESPACE, "Customer", Customer.class);
+	        
+	        HttpTransportSE t = new HttpTransportSE(URL);
+	            
+	        t.call(NAMESPACE + "ListHotels", envelope);
+	        SoapObject response = (SoapObject)envelope.getResponse();  
+	        
+	        for (int i = 0; i < response.getPropertyCount(); i++) {
+	            SoapObject pii = (SoapObject)response.getProperty(i);
+	            
+	            Hotel hotel = new Hotel();
+	            hotel.Hid = Integer.parseInt(pii.getPropertyAsString(0));
+	            hotel.Name = pii.getPropertyAsString(1);
+	            hotel.Adr = pii.getPropertyAsString(2);
+	            
+	            //Log.w("log", booking.toString());
+	            
+	            list.add(hotel);
+	        }
+	            
+		} catch(Exception ignore) { 
+			// Ignoring, we will serve an empty list if something went wrong.
+			Log.w("log", ignore);
+		}
 
+		return list;
+	}
+	
+	
 	public static boolean Register(String email, String pwd, String name, String adr, String tel) {
 		SoapObject req = new SoapObject(NAMESPACE, "Register");
 		req.addProperty("email", email);

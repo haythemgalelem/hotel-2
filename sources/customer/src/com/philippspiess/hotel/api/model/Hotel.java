@@ -24,4 +24,8 @@ public class Hotel {
 	public void setAdr(String adr) {
 		Adr = adr;
 	}	
+	
+	public String toString() {
+		return Name + " - " + Adr;
+	}
 }

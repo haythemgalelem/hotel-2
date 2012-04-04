@@ -2,14 +2,8 @@ package com.philippspiess.hotel;
 
 import java.util.ArrayList;
 
-import com.philippspiess.hotel.api.APIHelper;
-import com.philippspiess.hotel.api.model.Booking;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,16 +11,19 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class BookingsActivity extends Activity {
+import com.philippspiess.hotel.api.APIHelper;
+import com.philippspiess.hotel.api.model.Booking;
+import com.philippspiess.hotel.api.model.Hotel;
+
+public class HotelsActivity extends Activity {
 	
 	private ProgressDialog loading = null;
 	
-	private ArrayList<Booking> list = new ArrayList<Booking>();
+	private ArrayList<Hotel> list = new ArrayList<Hotel>();
 	private ListView listView;
 
 	private Handler handler = new Handler() {
@@ -38,10 +35,7 @@ public class BookingsActivity extends Activity {
 			}
 			
 			if(msg.obj != null) {
-				list = (ArrayList<Booking>) msg.obj;
-				//Log.w("log", "list = " + list.toString());
-				
-				// Don't know why I have to create a new Adapter every time. But i have to.
+				list = (ArrayList<Hotel>) msg.obj;
 				updateList();
 			}
 		}
@@ -50,9 +44,9 @@ public class BookingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.bookings);
+		setContentView(R.layout.hotels);
 
-		listView = (ListView) findViewById(R.id.list);
+		listView = (ListView) findViewById(R.id.hotelsList);
 		updateList();
 		
 		listView.setClickable(true);
@@ -61,26 +55,25 @@ public class BookingsActivity extends Activity {
 					long arg3) {
 				
 				if(arg2 < list.size()) {
-					APIHelper.current_booking = list.get(arg2);
-					Log.w("log", "Click = " + APIHelper.current_booking.toString());
+					APIHelper.current_hotel = list.get(arg2);
+					Log.w("log", "Click = " + APIHelper.current_hotel.toString());
 					
-					Intent i = new Intent(BookingsActivity.this, BookingActivity.class);
-	    			startActivity(i);
+					//Intent i = new Intent(BookingsActivity.this, BookingActivity.class);
+	    			//startActivity(i);
 				}
 			}
 		});
 
 		//this.setListAdapter(adapter);
 		
-		loading = new ProgressDialog(BookingsActivity.this);
+		loading = new ProgressDialog(HotelsActivity.this);
 		loading.setTitle("Loading...");
 		loading.setMessage("Please wait while we're fetching your data.");
 		loading.show();
 		
 		new Thread(new Runnable() {
 			public void run() {
-				ArrayList<Booking> list = APIHelper.ListBookings();
-				
+				ArrayList<Hotel> list = APIHelper.ListHotels();
 				
 				// Create a new Message and post it to the queue!
 				Message m = new Message();
@@ -91,12 +84,7 @@ public class BookingsActivity extends Activity {
 	}
 	
 	public void updateList() {
-		ArrayAdapter<Booking> adapter = new ArrayAdapter<Booking>(BookingsActivity.this, android.R.layout.simple_list_item_1, list);
+		ArrayAdapter<Hotel> adapter = new ArrayAdapter<Hotel>(HotelsActivity.this, android.R.layout.simple_list_item_1, list);
 		listView.setAdapter(adapter);
-	}
-	
-	public void newBooking(View view) {
-		Intent i = new Intent(BookingsActivity.this, HotelsActivity.class);
-		startActivity(i);
-	}
+	}	
 }
