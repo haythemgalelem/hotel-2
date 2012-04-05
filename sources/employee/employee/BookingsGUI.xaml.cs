@@ -22,6 +22,7 @@ namespace employee
     {
         private HotelEntities entities;
         private int Hid { get; set; }
+        public List<booking> query;
         
         public BookingsGUI(int Hid)
         {
@@ -62,12 +63,15 @@ namespace employee
             ObjectQuery<customer> customers = entities.customer;
             ObjectQuery<booking> bookings = entities.booking;
 
-            var query = from
+            /*var query = from
                   b in bookings
                         join c in customers on b.by_customer_email equals c.email
                         select new { b.at, b.duration, b.roomNr, b.numAdults, b.numChilds, c.email, c.adr, c.name, c.tel };
+            */
 
-            dataGrid1.ItemsSource = query.ToList();
+            var query_d = from b in bookings select b;
+            query = query_d.ToList();
+            //dataGrid1.ItemsSource = query.ToList();
 
         }
 
