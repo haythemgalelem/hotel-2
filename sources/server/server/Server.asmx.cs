@@ -46,6 +46,12 @@ namespace server
         }
 
         [WebMethod]
+        public List<Booking> ListBookingsByHid(int hid)
+        {
+            return db.ListBookingsByHid(hid);
+        }
+
+        [WebMethod]
         public bool NewBooking(String email, int hid, String at, int duration, int roomNr, int numAdults, int numChilds)
         {
             return db.NewBooking(email, hid, at, duration, roomNr, numAdults, numChilds);
@@ -56,6 +62,24 @@ namespace server
         public List<Hotel> ListHotels()
         {
             return db.ListHotels();
+        }
+
+        [WebMethod]
+        public Hotel HotelInfo(int hid)
+        {
+            return db.HotelInfo(hid);
+        }
+
+        [WebMethod]
+        public bool EditBooking(String email, int hid, String at, int duration, int roomNr, int numAdults, int numChilds)
+        {
+            return db.EditBooking(email, hid, at, duration, roomNr, numAdults, numChilds);
+        }
+
+        [WebMethod]
+        public bool DeleteBooking(String email, int hid, String at)
+        {
+            return db.DeleteBooking(email, hid, at);
         }
     }
 }

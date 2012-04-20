@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Bookings" Height="492" Width="616" xmlns:my="clr-namespace:employee">
     <Grid Width="593">
-        <DataGrid AutoGenerateColumns="False" Height="319" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" Width="588" Margin="0,40,0,0" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:BookingsGUI, AncestorLevel=1}}" AllowDrop="True" AlternationCount="1" CanUserDeleteRows="{Binding}">
+
+        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" Height="319" HorizontalAlignment="Left" Name="dataGrid1" VerticalAlignment="Top" Width="588" Margin="0,40,0,0" DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=my:BookingsGUI, AncestorLevel=1}}" AllowDrop="True" AlternationCount="1" CanUserDeleteRows="{Binding}">
             <DataGrid.RowHeaderTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}, Path=Header}">
@@ -11,15 +12,22 @@
                 </DataTemplate>
             </DataGrid.RowHeaderTemplate>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding at, Mode=TwoWay, ValidatesOnExceptions=True}" Header="Date" IsReadOnly="False" x:Name="at" />
-                <DataGridTextColumn Binding="{Binding duration, Mode=TwoWay, ValidatesOnExceptions=True}" Header="Duration" IsReadOnly="False" x:Name="duration" />
-                <DataGridTextColumn Binding="{Binding roomNr, Mode=TwoWay, ValidatesOnExceptions=True}" Header="RoomNr" IsReadOnly="False" x:Name="roomNr" />
-                <DataGridTextColumn Binding="{Binding numAdults, Mode=TwoWay, ValidatesOnExceptions=True}" Header="NumAdults" IsReadOnly="False" x:Name="numAdults" />
-                <DataGridTextColumn Binding="{Binding numChilds, Mode=OneWay, ValidatesOnExceptions=True}" Header="NumChildren" IsReadOnly="False" x:Name="numChilds" />
-                <DataGridTextColumn Binding="{Binding by_customer_email, Mode=OneWay, ValidatesOnExceptions=True}" Header="C. Email" IsReadOnly="True" x:Name="by_customer_email" />
+                
+                <DataGridTextColumn Binding="{Binding Customer.Name, Mode=TwoWay, ValidatesOnExceptions=True}" Header="C. Email" IsReadOnly="True" x:Name="CustomerName" />
+                <DataGridTextColumn Binding="{Binding At, Mode=TwoWay, ValidatesOnExceptions=True}" Header="Date" IsReadOnly="True" x:Name="At" />
+                <DataGridTextColumn Binding="{Binding Duration, Mode=TwoWay, ValidatesOnExceptions=True}" Header="Duration" IsReadOnly="False" x:Name="Duration" />
+                <DataGridTextColumn Binding="{Binding RoomNr, Mode=TwoWay, ValidatesOnExceptions=True}" Header="RoomNr" IsReadOnly="False" x:Name="RoomNr" />
+                <DataGridTextColumn Binding="{Binding NumAdults, Mode=TwoWay, ValidatesOnExceptions=True}" Header="NumAdults" IsReadOnly="False" x:Name="NumAdults" />
+                <DataGridTextColumn Binding="{Binding NumChilds, Mode=TwoWay, ValidatesOnExceptions=True}" Header="NumChildren" IsReadOnly="False" x:Name="NumChilds" />
             </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="ToolTip" Value="{Binding Customer.ToolTip}">
+                    </Setter>
+                </Style>
+            </DataGrid.RowStyle>
         </DataGrid>
-        
+
         <!-- Le wild unstructured data appeared. -->
         <Label Content="Bookings" Height="34" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Margin="0,4,0,0" />
         <Button Content="Logout" Height="23" HorizontalAlignment="Left" Margin="513,10,0,0" Name="logoutBtn" VerticalAlignment="Top" Width="75" Click="logoutBtn_Click" />
@@ -30,5 +38,10 @@
         <Label Content="Address:" Height="28" HorizontalAlignment="Left" Margin="269,8,0,0" Name="label4" VerticalAlignment="Top" />
         <Label Content="????" Height="28" HorizontalAlignment="Left" Margin="330,9,0,0" Name="info_adr" VerticalAlignment="Top" />
         <Button Content="Reload" Height="23" HorizontalAlignment="Left" Margin="432,10,0,0" Name="reloadBtn" VerticalAlignment="Top" Width="75" Click="reloadBtn_Click" />
+        <Button Content="Save Changes" Height="23" HorizontalAlignment="Left" Margin="12,365,0,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
+        <Label Content="Rows:" Height="28" HorizontalAlignment="Left" Margin="513,360,0,0" Name="label5" VerticalAlignment="Top" />
+        <Label Content="xxx" Height="28" HorizontalAlignment="Left" Margin="550,360,0,0" Name="info_rows" VerticalAlignment="Top" />
+        <Button Content="Delete Selected" Height="23" HorizontalAlignment="Left" Margin="104,365,0,0" Name="button2" VerticalAlignment="Top" Width="75" Click="button2_Click" />
+        <Button Content="Print" Height="23" HorizontalAlignment="Left" Margin="12,418,0,0" Name="button3" VerticalAlignment="Top" Width="75" Click="button3_Click" />
     </Grid>
 </Window>

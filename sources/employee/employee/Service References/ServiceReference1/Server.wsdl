@@ -70,7 +70,8 @@
           <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="Adr" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="Tel" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Tel" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToolTip" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="Hotel">
@@ -80,6 +81,20 @@
           <s:element minOccurs="0" maxOccurs="1" name="Adr" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ListBookingsByHid">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="hid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListBookingsByHidResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListBookingsByHidResult" type="tns:ArrayOfBooking" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="NewBooking">
         <s:complexType>
           <s:sequence>
@@ -97,6 +112,71 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="NewBookingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListHotels">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListHotelsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListHotelsResult" type="tns:ArrayOfHotel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHotel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Hotel" nillable="true" type="tns:Hotel" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="HotelInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="hid" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HotelInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HotelInfoResult" type="tns:Hotel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditBooking">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="hid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="at" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="duration" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="roomNr" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="numAdults" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="numChilds" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EditBookingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EditBookingResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBooking">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="hid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="at" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBookingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeleteBookingResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -120,11 +200,41 @@
   <wsdl:message name="ListBookingsSoapOut">
     <wsdl:part name="parameters" element="tns:ListBookingsResponse" />
   </wsdl:message>
+  <wsdl:message name="ListBookingsByHidSoapIn">
+    <wsdl:part name="parameters" element="tns:ListBookingsByHid" />
+  </wsdl:message>
+  <wsdl:message name="ListBookingsByHidSoapOut">
+    <wsdl:part name="parameters" element="tns:ListBookingsByHidResponse" />
+  </wsdl:message>
   <wsdl:message name="NewBookingSoapIn">
     <wsdl:part name="parameters" element="tns:NewBooking" />
   </wsdl:message>
   <wsdl:message name="NewBookingSoapOut">
     <wsdl:part name="parameters" element="tns:NewBookingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListHotelsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListHotels" />
+  </wsdl:message>
+  <wsdl:message name="ListHotelsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListHotelsResponse" />
+  </wsdl:message>
+  <wsdl:message name="HotelInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:HotelInfo" />
+  </wsdl:message>
+  <wsdl:message name="HotelInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:HotelInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="EditBookingSoapIn">
+    <wsdl:part name="parameters" element="tns:EditBooking" />
+  </wsdl:message>
+  <wsdl:message name="EditBookingSoapOut">
+    <wsdl:part name="parameters" element="tns:EditBookingResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBookingSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteBooking" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBookingSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteBookingResponse" />
   </wsdl:message>
   <wsdl:portType name="ServerSoap">
     <wsdl:operation name="Authenticate">
@@ -139,9 +249,29 @@
       <wsdl:input message="tns:ListBookingsSoapIn" />
       <wsdl:output message="tns:ListBookingsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="ListBookingsByHid">
+      <wsdl:input message="tns:ListBookingsByHidSoapIn" />
+      <wsdl:output message="tns:ListBookingsByHidSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NewBooking">
       <wsdl:input message="tns:NewBookingSoapIn" />
       <wsdl:output message="tns:NewBookingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListHotels">
+      <wsdl:input message="tns:ListHotelsSoapIn" />
+      <wsdl:output message="tns:ListHotelsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="HotelInfo">
+      <wsdl:input message="tns:HotelInfoSoapIn" />
+      <wsdl:output message="tns:HotelInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EditBooking">
+      <wsdl:input message="tns:EditBookingSoapIn" />
+      <wsdl:output message="tns:EditBookingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBooking">
+      <wsdl:input message="tns:DeleteBookingSoapIn" />
+      <wsdl:output message="tns:DeleteBookingSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServerSoap" type="tns:ServerSoap">
@@ -173,8 +303,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListBookingsByHid">
+      <soap:operation soapAction="http://myxcode.at/ListBookingsByHid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NewBooking">
       <soap:operation soapAction="http://myxcode.at/NewBooking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListHotels">
+      <soap:operation soapAction="http://myxcode.at/ListHotels" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HotelInfo">
+      <soap:operation soapAction="http://myxcode.at/HotelInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditBooking">
+      <soap:operation soapAction="http://myxcode.at/EditBooking" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBooking">
+      <soap:operation soapAction="http://myxcode.at/DeleteBooking" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -212,8 +387,53 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ListBookingsByHid">
+      <soap12:operation soapAction="http://myxcode.at/ListBookingsByHid" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NewBooking">
       <soap12:operation soapAction="http://myxcode.at/NewBooking" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListHotels">
+      <soap12:operation soapAction="http://myxcode.at/ListHotels" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HotelInfo">
+      <soap12:operation soapAction="http://myxcode.at/HotelInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditBooking">
+      <soap12:operation soapAction="http://myxcode.at/EditBooking" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBooking">
+      <soap12:operation soapAction="http://myxcode.at/DeleteBooking" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

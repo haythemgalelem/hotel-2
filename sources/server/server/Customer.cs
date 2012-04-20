@@ -11,6 +11,7 @@ namespace server
         public String Name { get; set; }
         public String Adr { get; set; }
         public Decimal Tel { get; set; }
+        public String ToolTip { get; set; }
 
         public Customer() { }
 

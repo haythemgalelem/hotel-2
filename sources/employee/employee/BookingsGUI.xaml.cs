@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.Objects;
 using System.Configuration;
+using employee.ServiceReference1;
 
 namespace employee
 {
@@ -20,34 +21,23 @@ namespace employee
     /// </summary>
     public partial class BookingsGUI : Window
     {
-        private HotelEntities entities;
         private int Hid { get; set; }
-        public List<booking> query;
+        public Booking[] bookings;
+        private Booking[] original_bookings;
+        public Hotel hotel;
+
+        private ServerSoapClient serv = new ServerSoapClient();
         
         public BookingsGUI(int Hid)
         {
             InitializeComponent();
             this.Hid = Hid;
 
-            /**
-             *  Update Connection String 
-             **/
-            String connectionString = ConfigurationManager.ConnectionStrings["HotelEntities"].ConnectionString;
-
-            connectionString = connectionString.Replace("%host%", Environment.GetEnvironmentVariable("HOTEL_DB_ADDR"));
-            connectionString = connectionString.Replace("%database%", Environment.GetEnvironmentVariable("HOTEL_DB_NAME"));
-            connectionString = connectionString.Replace("%user%", Environment.GetEnvironmentVariable("HOTEL_DB_USER"));
-            connectionString = connectionString.Replace("%password%", Environment.GetEnvironmentVariable("HOTEL_DB_PWD"));
-
-            entities = new HotelEntities(connectionString);
-            ObjectQuery<hotel> hotels = entities.hotel;
-
-            var info = from h in hotels where h.hid.Equals(Hid) select h;
-            List<hotel> hotel_info = info.ToList();
-
-            info_hid.Content = hotel_info[0].hid;
-            info_name.Content = hotel_info[0].name;
-            info_adr.Content = hotel_info[0].adr;
+            hotel = this.serv.HotelInfo(this.Hid);
+          
+            info_hid.Content = hotel.Hid;
+            info_name.Content = hotel.Name;
+            info_adr.Content = hotel.Adr;
 
             this.reloadBtn_Click(null, null);
         }
@@ -60,22 +50,77 @@ namespace employee
 
         private void reloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            ObjectQuery<customer> customers = entities.customer;
-            ObjectQuery<booking> bookings = entities.booking;
 
-            /*var query = from
-                  b in bookings
-                        join c in customers on b.by_customer_email equals c.email
-                        select new { b.at, b.duration, b.roomNr, b.numAdults, b.numChilds, c.email, c.adr, c.name, c.tel };
-            */
+            bookings = this.serv.ListBookingsByHid(this.Hid);
+            original_bookings = this.serv.ListBookingsByHid(this.Hid);
 
-            var query_d = from b in bookings select b;
-            query = query_d.ToList();
-            //dataGrid1.ItemsSource = query.ToList();
+            info_rows.Content = bookings.Length;
+
+            dataGrid1.ItemsSource = bookings.ToList();
 
         }
 
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            bool something_changed = false;
+            for (int i = 0; i < original_bookings.Length; i++)
+            {
+                Booking original = original_bookings[i];
+                Booking changed = bookings[i];
+                Console.WriteLine("[Originial] Duration = " + original.Duration);
+                Console.WriteLine("[Changed] Duration = " + changed.Duration);
+                if (
+                    original.Duration != changed.Duration ||
+                    original.RoomNr != changed.RoomNr ||
+                    original.NumAdults != changed.NumAdults ||
+                    original.NumChilds != changed.NumChilds)
+                {
+                    something_changed = true;
+                    this.serv.EditBooking(changed.Customer.Email, this.Hid, changed.At, changed.Duration, changed.RoomNr, changed.NumAdults, changed.NumChilds);
+                }
+            }
 
+            if (something_changed)
+            {
+                reloadBtn_Click(null, null);
+                MessageBox.Show("Something changed, saved.");
+            }
+            else
+            {
+                MessageBox.Show("Nothing changed sorry.");
+            }
 
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid1.SelectedIndex < 0)
+            {
+                MessageBox.Show("No row selected");
+            }
+            else
+            {
+                Booking delete = this.bookings[dataGrid1.SelectedIndex];
+                this.serv.DeleteBooking(delete.Customer.Email, this.Hid, delete.At);
+                reloadBtn_Click(null, null);
+                MessageBox.Show("Deleted!");
+
+            }
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDlg = new PrintDialog();
+
+            if ((bool)printDlg.ShowDialog().GetValueOrDefault())
+            {
+                Size pageSize = new Size(printDlg.PrintableAreaWidth, printDlg.PrintableAreaHeight);
+                // sizing of the element.
+                dataGrid1.Measure(pageSize);
+                dataGrid1.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+                printDlg.PrintVisual(dataGrid1, Title);
+            }
+
+        }
     }
 }

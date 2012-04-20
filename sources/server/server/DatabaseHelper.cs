@@ -154,6 +154,49 @@ namespace server
             return list;
         }
 
+
+        public List<Booking> ListBookingsByHid(int hid)
+        {
+            List<Booking> list = new List<Booking>();
+            SqlCommand command = new SqlCommand("SELECT customer.email, customer.name, customer.adr, customer.tel,"
+                           + " booking.at, booking.duration, booking.roomNr, booking.numAdults, booking.numChilds,"
+                           + " hotel.hid, hotel.name, hotel.adr"
+                           + " FROM booking JOIN hotel on(hotel.hid = booking.in_hotel_hid) JOIN customer on(customer.email = booking.by_customer_email)"
+                           + " WHERE hotel.hid = @hid", con);
+            command.Parameters.AddWithValue("@hid", hid);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+
+                Customer c = new Customer(
+                            (String)reader["email"],
+                            (String)reader["name"],
+                            (String)reader["adr"],
+                            (Decimal)reader["tel"]
+                        );
+                c.ToolTip = "Email: " + (String)reader["email"] + " | Count: " + GetCustomerBookingsCount((String)reader["email"], hid);
+                Booking b = new Booking(
+                       c,
+                        new Hotel(
+                            (int)reader[9],
+                            (String)reader[10],
+                            (String)reader[11]
+                        ),
+                        (String)reader[4],
+                        (int)reader[5],
+                        (int)reader[6],
+                        (int)reader[7],
+                        (int)reader[8]
+                    ); 
+
+                list.Add(b);
+            }
+
+            reader.Close();
+            return list;
+        }
+
         public List<Hotel> ListHotels()
         {
             List<Hotel> list = new List<Hotel>();
@@ -171,6 +214,26 @@ namespace server
 
             reader.Close();
             return list;
+        }
+
+        public Hotel HotelInfo(int hid)
+        {
+            Hotel h = null;
+            SqlCommand command = new SqlCommand("SELECT hid, name, adr FROM hotel WHERE hid = @hid", con);
+            command.Parameters.AddWithValue("@hid", hid);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                h = new Hotel(
+                        (int)reader[0],
+                        (String)reader[1],
+                        (String)reader[2]
+                      );
+            }
+
+            reader.Close();
+            return h;
         }
 
 
@@ -199,6 +262,74 @@ namespace server
             {
                 return false;
             }
+        }
+
+        public bool EditBooking(String email, int hid, String at, int duration, int roomNr, int numAdults, int numChilds)
+        {
+            // Verify if the email is valid, the dirty way
+            if (this.Authenticate(email, email) == 2)
+                return false;
+
+            try
+            {
+                SqlCommand command = new SqlCommand("UPDATE booking SET duration = @duration, roomNr = @roomNr, numAdults = @numAdults, numChilds = @numChilds"
+                    + " WHERE by_customer_email = @by_customer_email and in_hotel_hid = @in_hotel_id and at = @at", con);
+                command.Parameters.AddWithValue("@by_customer_email", email);
+                command.Parameters.AddWithValue("@in_hotel_id", hid);
+                command.Parameters.AddWithValue("@at", at);
+                command.Parameters.AddWithValue("@duration", duration);
+                command.Parameters.AddWithValue("@roomNr", roomNr);
+                command.Parameters.AddWithValue("@numAdults", numAdults);
+                command.Parameters.AddWithValue("@numChilds", numChilds);
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool DeleteBooking(String email, int hid, String at)
+        {
+            // Verify if the email is valid, the dirty way
+            if (this.Authenticate(email, email) == 2)
+                return false;
+
+            try
+            {
+                SqlCommand command = new SqlCommand("DELETE FROM booking"
+                    + " WHERE by_customer_email = @by_customer_email and in_hotel_hid = @in_hotel_id and at = @at", con);
+                command.Parameters.AddWithValue("@by_customer_email", email);
+                command.Parameters.AddWithValue("@in_hotel_id", hid);
+                command.Parameters.AddWithValue("@at", at);
+                command.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+                return false;
+            }
+        }
+
+        private int GetCustomerBookingsCount(String email, int hid)
+        {
+            int count = 0;
+            SqlCommand command = new SqlCommand("SELECT COUNT(*) from booking where by_customer_email = @email and in_hotel_hid = @hid", con);
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@hid", hid); 
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {   
+                count = (int) reader[0];
+            }
+
+            reader.Close();
+            return count;
         }
     }
 }

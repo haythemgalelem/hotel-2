@@ -168,7 +168,10 @@ namespace employee.ServiceReference1 {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AdrField;
         
-        private int TelField;
+        private decimal TelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ToolTipField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -220,7 +223,7 @@ namespace employee.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
-        public int Tel {
+        public decimal Tel {
             get {
                 return this.TelField;
             }
@@ -228,6 +231,19 @@ namespace employee.ServiceReference1 {
                 if ((this.TelField.Equals(value) != true)) {
                     this.TelField = value;
                     this.RaisePropertyChanged("Tel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string ToolTip {
+            get {
+                return this.ToolTipField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ToolTipField, value) != true)) {
+                    this.ToolTipField = value;
+                    this.RaisePropertyChanged("ToolTip");
                 }
             }
         }
@@ -334,9 +350,29 @@ namespace employee.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/ListBookings", ReplyAction="*")]
         employee.ServiceReference1.ListBookingsResponse ListBookings(employee.ServiceReference1.ListBookingsRequest request);
         
+        // CODEGEN: Generating message contract since element name ListBookingsByHidResult from namespace http://myxcode.at/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/ListBookingsByHid", ReplyAction="*")]
+        employee.ServiceReference1.ListBookingsByHidResponse ListBookingsByHid(employee.ServiceReference1.ListBookingsByHidRequest request);
+        
         // CODEGEN: Generating message contract since element name email from namespace http://myxcode.at/ is not marked nillable
         [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/NewBooking", ReplyAction="*")]
         employee.ServiceReference1.NewBookingResponse NewBooking(employee.ServiceReference1.NewBookingRequest request);
+        
+        // CODEGEN: Generating message contract since element name ListHotelsResult from namespace http://myxcode.at/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/ListHotels", ReplyAction="*")]
+        employee.ServiceReference1.ListHotelsResponse ListHotels(employee.ServiceReference1.ListHotelsRequest request);
+        
+        // CODEGEN: Generating message contract since element name HotelInfoResult from namespace http://myxcode.at/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/HotelInfo", ReplyAction="*")]
+        employee.ServiceReference1.HotelInfoResponse HotelInfo(employee.ServiceReference1.HotelInfoRequest request);
+        
+        // CODEGEN: Generating message contract since element name email from namespace http://myxcode.at/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/EditBooking", ReplyAction="*")]
+        employee.ServiceReference1.EditBookingResponse EditBooking(employee.ServiceReference1.EditBookingRequest request);
+        
+        // CODEGEN: Generating message contract since element name email from namespace http://myxcode.at/ is not marked nillable
+        [System.ServiceModel.OperationContractAttribute(Action="http://myxcode.at/DeleteBooking", ReplyAction="*")]
+        employee.ServiceReference1.DeleteBookingResponse DeleteBooking(employee.ServiceReference1.DeleteBookingRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -567,6 +603,74 @@ namespace employee.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListBookingsByHidRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListBookingsByHid", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.ListBookingsByHidRequestBody Body;
+        
+        public ListBookingsByHidRequest() {
+        }
+        
+        public ListBookingsByHidRequest(employee.ServiceReference1.ListBookingsByHidRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class ListBookingsByHidRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int hid;
+        
+        public ListBookingsByHidRequestBody() {
+        }
+        
+        public ListBookingsByHidRequestBody(int hid) {
+            this.hid = hid;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListBookingsByHidResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListBookingsByHidResponse", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.ListBookingsByHidResponseBody Body;
+        
+        public ListBookingsByHidResponse() {
+        }
+        
+        public ListBookingsByHidResponse(employee.ServiceReference1.ListBookingsByHidResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class ListBookingsByHidResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public employee.ServiceReference1.Booking[] ListBookingsByHidResult;
+        
+        public ListBookingsByHidResponseBody() {
+        }
+        
+        public ListBookingsByHidResponseBody(employee.ServiceReference1.Booking[] ListBookingsByHidResult) {
+            this.ListBookingsByHidResult = ListBookingsByHidResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
     public partial class NewBookingRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Name="NewBooking", Namespace="http://myxcode.at/", Order=0)]
@@ -655,6 +759,303 @@ namespace employee.ServiceReference1 {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListHotelsRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListHotels", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.ListHotelsRequestBody Body;
+        
+        public ListHotelsRequest() {
+        }
+        
+        public ListHotelsRequest(employee.ServiceReference1.ListHotelsRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class ListHotelsRequestBody {
+        
+        public ListHotelsRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ListHotelsResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ListHotelsResponse", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.ListHotelsResponseBody Body;
+        
+        public ListHotelsResponse() {
+        }
+        
+        public ListHotelsResponse(employee.ServiceReference1.ListHotelsResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class ListHotelsResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public employee.ServiceReference1.Hotel[] ListHotelsResult;
+        
+        public ListHotelsResponseBody() {
+        }
+        
+        public ListHotelsResponseBody(employee.ServiceReference1.Hotel[] ListHotelsResult) {
+            this.ListHotelsResult = ListHotelsResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class HotelInfoRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="HotelInfo", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.HotelInfoRequestBody Body;
+        
+        public HotelInfoRequest() {
+        }
+        
+        public HotelInfoRequest(employee.ServiceReference1.HotelInfoRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class HotelInfoRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int hid;
+        
+        public HotelInfoRequestBody() {
+        }
+        
+        public HotelInfoRequestBody(int hid) {
+            this.hid = hid;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class HotelInfoResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="HotelInfoResponse", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.HotelInfoResponseBody Body;
+        
+        public HotelInfoResponse() {
+        }
+        
+        public HotelInfoResponse(employee.ServiceReference1.HotelInfoResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class HotelInfoResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public employee.ServiceReference1.Hotel HotelInfoResult;
+        
+        public HotelInfoResponseBody() {
+        }
+        
+        public HotelInfoResponseBody(employee.ServiceReference1.Hotel HotelInfoResult) {
+            this.HotelInfoResult = HotelInfoResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class EditBookingRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="EditBooking", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.EditBookingRequestBody Body;
+        
+        public EditBookingRequest() {
+        }
+        
+        public EditBookingRequest(employee.ServiceReference1.EditBookingRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class EditBookingRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string email;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int hid;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string at;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public int duration;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+        public int roomNr;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+        public int numAdults;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+        public int numChilds;
+        
+        public EditBookingRequestBody() {
+        }
+        
+        public EditBookingRequestBody(string email, int hid, string at, int duration, int roomNr, int numAdults, int numChilds) {
+            this.email = email;
+            this.hid = hid;
+            this.at = at;
+            this.duration = duration;
+            this.roomNr = roomNr;
+            this.numAdults = numAdults;
+            this.numChilds = numChilds;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class EditBookingResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="EditBookingResponse", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.EditBookingResponseBody Body;
+        
+        public EditBookingResponse() {
+        }
+        
+        public EditBookingResponse(employee.ServiceReference1.EditBookingResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class EditBookingResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool EditBookingResult;
+        
+        public EditBookingResponseBody() {
+        }
+        
+        public EditBookingResponseBody(bool EditBookingResult) {
+            this.EditBookingResult = EditBookingResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteBookingRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteBooking", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.DeleteBookingRequestBody Body;
+        
+        public DeleteBookingRequest() {
+        }
+        
+        public DeleteBookingRequest(employee.ServiceReference1.DeleteBookingRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class DeleteBookingRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string email;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+        public int hid;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=2)]
+        public string at;
+        
+        public DeleteBookingRequestBody() {
+        }
+        
+        public DeleteBookingRequestBody(string email, int hid, string at) {
+            this.email = email;
+            this.hid = hid;
+            this.at = at;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class DeleteBookingResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="DeleteBookingResponse", Namespace="http://myxcode.at/", Order=0)]
+        public employee.ServiceReference1.DeleteBookingResponseBody Body;
+        
+        public DeleteBookingResponse() {
+        }
+        
+        public DeleteBookingResponse(employee.ServiceReference1.DeleteBookingResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://myxcode.at/")]
+    public partial class DeleteBookingResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public bool DeleteBookingResult;
+        
+        public DeleteBookingResponseBody() {
+        }
+        
+        public DeleteBookingResponseBody(bool DeleteBookingResult) {
+            this.DeleteBookingResult = DeleteBookingResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ServerSoapChannel : employee.ServiceReference1.ServerSoap, System.ServiceModel.IClientChannel {
     }
@@ -727,6 +1128,19 @@ namespace employee.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        employee.ServiceReference1.ListBookingsByHidResponse employee.ServiceReference1.ServerSoap.ListBookingsByHid(employee.ServiceReference1.ListBookingsByHidRequest request) {
+            return base.Channel.ListBookingsByHid(request);
+        }
+        
+        public employee.ServiceReference1.Booking[] ListBookingsByHid(int hid) {
+            employee.ServiceReference1.ListBookingsByHidRequest inValue = new employee.ServiceReference1.ListBookingsByHidRequest();
+            inValue.Body = new employee.ServiceReference1.ListBookingsByHidRequestBody();
+            inValue.Body.hid = hid;
+            employee.ServiceReference1.ListBookingsByHidResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).ListBookingsByHid(inValue);
+            return retVal.Body.ListBookingsByHidResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         employee.ServiceReference1.NewBookingResponse employee.ServiceReference1.ServerSoap.NewBooking(employee.ServiceReference1.NewBookingRequest request) {
             return base.Channel.NewBooking(request);
         }
@@ -743,6 +1157,65 @@ namespace employee.ServiceReference1 {
             inValue.Body.numChilds = numChilds;
             employee.ServiceReference1.NewBookingResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).NewBooking(inValue);
             return retVal.Body.NewBookingResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        employee.ServiceReference1.ListHotelsResponse employee.ServiceReference1.ServerSoap.ListHotels(employee.ServiceReference1.ListHotelsRequest request) {
+            return base.Channel.ListHotels(request);
+        }
+        
+        public employee.ServiceReference1.Hotel[] ListHotels() {
+            employee.ServiceReference1.ListHotelsRequest inValue = new employee.ServiceReference1.ListHotelsRequest();
+            inValue.Body = new employee.ServiceReference1.ListHotelsRequestBody();
+            employee.ServiceReference1.ListHotelsResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).ListHotels(inValue);
+            return retVal.Body.ListHotelsResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        employee.ServiceReference1.HotelInfoResponse employee.ServiceReference1.ServerSoap.HotelInfo(employee.ServiceReference1.HotelInfoRequest request) {
+            return base.Channel.HotelInfo(request);
+        }
+        
+        public employee.ServiceReference1.Hotel HotelInfo(int hid) {
+            employee.ServiceReference1.HotelInfoRequest inValue = new employee.ServiceReference1.HotelInfoRequest();
+            inValue.Body = new employee.ServiceReference1.HotelInfoRequestBody();
+            inValue.Body.hid = hid;
+            employee.ServiceReference1.HotelInfoResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).HotelInfo(inValue);
+            return retVal.Body.HotelInfoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        employee.ServiceReference1.EditBookingResponse employee.ServiceReference1.ServerSoap.EditBooking(employee.ServiceReference1.EditBookingRequest request) {
+            return base.Channel.EditBooking(request);
+        }
+        
+        public bool EditBooking(string email, int hid, string at, int duration, int roomNr, int numAdults, int numChilds) {
+            employee.ServiceReference1.EditBookingRequest inValue = new employee.ServiceReference1.EditBookingRequest();
+            inValue.Body = new employee.ServiceReference1.EditBookingRequestBody();
+            inValue.Body.email = email;
+            inValue.Body.hid = hid;
+            inValue.Body.at = at;
+            inValue.Body.duration = duration;
+            inValue.Body.roomNr = roomNr;
+            inValue.Body.numAdults = numAdults;
+            inValue.Body.numChilds = numChilds;
+            employee.ServiceReference1.EditBookingResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).EditBooking(inValue);
+            return retVal.Body.EditBookingResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        employee.ServiceReference1.DeleteBookingResponse employee.ServiceReference1.ServerSoap.DeleteBooking(employee.ServiceReference1.DeleteBookingRequest request) {
+            return base.Channel.DeleteBooking(request);
+        }
+        
+        public bool DeleteBooking(string email, int hid, string at) {
+            employee.ServiceReference1.DeleteBookingRequest inValue = new employee.ServiceReference1.DeleteBookingRequest();
+            inValue.Body = new employee.ServiceReference1.DeleteBookingRequestBody();
+            inValue.Body.email = email;
+            inValue.Body.hid = hid;
+            inValue.Body.at = at;
+            employee.ServiceReference1.DeleteBookingResponse retVal = ((employee.ServiceReference1.ServerSoap)(this)).DeleteBooking(inValue);
+            return retVal.Body.DeleteBookingResult;
         }
     }
 }

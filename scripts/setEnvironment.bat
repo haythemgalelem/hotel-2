@@ -9,16 +9,14 @@ set ANT_PATH=C:\Program Files\apache-ant-1.8.3\bin
 :: Required by ANT
 set JAVA_HOME=C:\Program Files\Java\jdk1.6.0_31
 
-:: Android
-set ANDROID_NAMESPACE=com.philippspiess.hotel/.CustomerActivity
-
 :: IIS
 set DEPLOY_TO_PATH=C:\webservice\hotel
-
+	
 :: Database
-set HOTEL_DB_ADDR=localhost
-set HOTEL_DB_NAME=hotel
-set HOTEL_DB_PWD=testtest
-set HOTEL_DB_USER=test
+setx HOTEL_DB_ADDR localhost /m
+setx HOTEL_DB_NAME hotel /m
+setx HOTEL_DB_PWD testtest /m
+setx HOTEL_DB_USER test /m
+:: Has to be set global, otherwise IIS user won't have any access. Requires admin rights.
 
 set SOURCES_PATH=C:\Users\philipp\dev\hotel\sources
