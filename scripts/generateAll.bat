@@ -1,13 +1,17 @@
 @echo off
 set OLDDIR=%CD%
 
+call setPupilID.bat
+call setEnvironment.bat
+
 :::::::::::::::
 :: SERVER
 :::::::::::::::
 
 :: build
+echo %SERVER_PATH%
 cd %SERVER_PATH%
-"%MSBUILD_PATH%\MSBuild.exe" "%SERVER_PROJ%" /t:rebuild /p:Configuration=Release
+MSBuild "%SERVER_PROJ%" /t:rebuild /p:Configuration=Release
 
 :: prepare deploy directory
 rmdir /s /q %DEPLOY_TO_PATH%
@@ -15,6 +19,7 @@ mkdir "%DEPLOY_TO_PATH%"
 mkdir "%DEPLOY_TO_PATH%\bin"
 
 :: DEPLOY HARD!
+cd %OLDDIR%
 copy "%SERVER_PATH%\bin\*" "%DEPLOY_TO_PATH%\bin\"
 copy "%SERVER_PATH%\*.asmx" "%DEPLOY_TO_PATH%\"
 copy "%SERVER_PATH%\*.config" "%DEPLOY_TO_PATH%\"
@@ -28,8 +33,9 @@ iisreset /restart
 :::::::::::::::
 
 :: build
-cd "%EMPLOYEE_PATH%"
-"%MSBUILD_PATH%\MSBuild.exe" "%EMPLOYEE_PROJ%" /t:rebuild /p:Configuration=Release
+cd %OLDDIR%
+cd %EMPLOYEE_PATH%
+MSBuild "%EMPLOYEE_PROJ%" /t:rebuild /p:Configuration=Release
 
 
 :::::::::::::::
@@ -37,11 +43,12 @@ cd "%EMPLOYEE_PATH%"
 :::::::::::::::
 
 :: generating build.xml for apache ant
-cd "%CUSTOMER_PATH%"
-call "%ANDROID_TOOLS_PATH%\android.bat" update project --path .
+cd %OLDDIR%
+cd %CUSTOMER_PATH%
+call android.bat update project --path .
 
 :: building
-call "%ANT_PATH%\ant.bat" debug
+call ant.bat debug
 
 
 :: exiting

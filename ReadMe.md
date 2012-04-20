@@ -1,4 +1,4 @@
-# Le wild school project appeared.
+# Programming project scripts description
 
 ## Dependencies
 
@@ -15,30 +15,22 @@ IIS should be running and set up. You should have connected one adb device (eith
 
 ## Structure
 
-  - /scripts -  All the .bat files
-  - /sources
-    - /customer - Android Application
-    - /employee - Client Application
-    - /server - WebService
+  - `/scripts` -  All the .bat files
+  - `/sources`
+    - `/customer` - Android Application
+    - `/employee` - Client Application
+    - `/server` - WebService
 
 ## How to get started
 
-Make sure `setEnvironment.bat` and (for the pupils) `setPupilID.bat` is set up correctly.
+**Teacher and Student:** Open `/scripts/setEnvironment.bat` and change what you can change.
 
-Open the windows command prompt and cd into the `scripts` folder.
+**Student:** Open `/scripts/setPupilID.bat` and set your pupil ID.
 
-**Set Environment Variables**
+## Build and Play
 
-    setEnvironment.bat
-    setPupilID.bat
+Double click `/scripts/generateAll.bat` to build and deploy. (Make sure you run it with administrator rights)
 
-*Pleace notice the order.*
+Double click `/scripts/runApp.bat` to install the .apk on your device and open it. (It should automatically open an emulator)
 
-**Compile**
-
-    generateAll.bat
-
-**Jump into it**
-
-   runApp.bat
-   runTool.bat
+Double click `/scripts/runTool.bat` to run the employee tool.
