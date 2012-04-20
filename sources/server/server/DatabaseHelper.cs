@@ -25,6 +25,65 @@ namespace server
             con.Open();
         }
 
+        public  void CreateTablesIfNotExist()
+        {
+            if (!TableExists("booking"))
+            {
+                SqlCommand command = new SqlCommand("CREATE TABLE [dbo].[booking]( "
+                    + "[by_customer_email] [varchar](50) NOT NULL, "
+                    + "[in_hotel_hid] [int] NOT NULL, "
+                    + "[at] [varchar](10) NOT NULL, "
+                    + "[duration] [int] NOT NULL, "
+                    + "[roomNr] [int] NOT NULL, "
+                    + "[numAdults] [int] NOT NULL, "
+                    + "[numChilds] [int] NOT NULL "
+                    + ")", con);
+                command.ExecuteNonQuery();
+            }
+
+            if (!TableExists("customer"))
+            {
+                SqlCommand command = new SqlCommand("CREATE TABLE [dbo].[customer]( "
+                    + "[email] [varchar](50) NOT NULL, "
+                    + "[pwd] [varchar](24) NOT NULL, "
+                    + "[name] [varchar](50) NOT NULL, "
+                    + "[adr] [varchar](100) NOT NULL, "
+                    + "[tel] [numeric](16, 0) NOT NULL "
+                    + ")", con);
+                command.ExecuteNonQuery();
+            }
+
+            if (!TableExists("hotel"))
+            {
+                SqlCommand command = new SqlCommand("CREATE TABLE [dbo].[hotel]( "
+	                + "[hid] [int] IDENTITY(1,1) NOT NULL, "
+	                + "[name] [varchar](50) NOT NULL, "
+	                + "[adr] [varchar](100) NOT NULL "
+                    + ")", con);
+                command.ExecuteNonQuery();
+
+                // Create some seeds
+                NewHotel("Hotel 1", "Hotel Straße Nr. 1");
+                NewHotel("Hotel 2", "Hotel Straße Nr. 2");
+                NewHotel("Hotel 3", "Hotel Straße Nr. 3");
+            }
+        }
+
+        private bool TableExists(String name)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM " + name, con);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Close();
+                return true;
+            }
+            catch (SqlException e)
+            {
+                return false;
+            }
+        }
+
         public static DatabaseHelper GetInstance()
         {
             if (instance == null)
@@ -331,5 +390,25 @@ namespace server
             reader.Close();
             return count;
         }
+
+
+        public bool NewHotel(String Name, String Adr)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("INSERT INTO hotel (name, adr) values (@name, @adr)", con);
+                command.Parameters.AddWithValue("@name", Name);
+                command.Parameters.AddWithValue("@adr", Adr);
+                command.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+                return false;
+            }
+        }
+
+        
     }
 }

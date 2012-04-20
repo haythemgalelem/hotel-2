@@ -1,7 +1,7 @@
 USE [hotel]
 GO
 
-/****** Object:  Table [dbo].[customer]    Script Date: 03/27/2012 13:21:49 ******/
+/****** Object:  Table [dbo].[customer]    Script Date: 04/20/2012 14:24:43 ******/
 SET ANSI_NULLS ON
 GO
 

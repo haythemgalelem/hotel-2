@@ -18,14 +18,13 @@ namespace server
     {
         private DatabaseHelper db = DatabaseHelper.GetInstance();
 
-        public Server()
-        {
-            Console.WriteLine("Constructor called");
-        }
+        public Server() { }
 
         [WebMethod]
         public int Authenticate(String email, String pwd)
         {
+            db.CreateTablesIfNotExist();
+
             if (email == null &&  pwd == null)
             {
                 throw new Exception("WHY?");

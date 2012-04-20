@@ -1,7 +1,7 @@
 USE [hotel]
 GO
 
-/****** Object:  Table [dbo].[booking]    Script Date: 03/27/2012 13:21:58 ******/
+/****** Object:  Table [dbo].[booking]    Script Date: 04/20/2012 14:24:16 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,8 +13,8 @@ GO
 
 CREATE TABLE [dbo].[booking](
 	[by_customer_email] [varchar](50) NOT NULL,
-	[in_hotel_hid] [int] IDENTITY(1,1) NOT NULL,
-	[at] [date] NOT NULL,
+	[in_hotel_hid] [int] NOT NULL,
+	[at] [varchar](10) NOT NULL,
 	[duration] [int] NOT NULL,
 	[roomNr] [int] NOT NULL,
 	[numAdults] [int] NOT NULL,
