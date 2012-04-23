@@ -14,9 +14,10 @@ cd %SERVER_PATH%
 MSBuild "%SERVER_PROJ%" /t:rebuild /p:Configuration=Release
 
 :: prepare deploy directory
+cd %OLDDIR%
 rmdir /s /q %DEPLOY_TO_PATH%
-mkdir "%DEPLOY_TO_PATH%"
-mkdir "%DEPLOY_TO_PATH%\bin"
+mkdir %DEPLOY_TO_PATH%
+mkdir %DEPLOY_TO_PATH%\bin
 
 :: DEPLOY HARD!
 cd %OLDDIR%
