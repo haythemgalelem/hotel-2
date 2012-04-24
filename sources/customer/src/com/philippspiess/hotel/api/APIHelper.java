@@ -10,7 +10,7 @@ import android.util.Log;
 public class APIHelper {
 	
 	public static String NAMESPACE = "http://myxcode.at/";
-	public static String URL = "http://localhost/hotel/Server.asmx";
+	public static String URL = "http://10.0.2.2/hotel/Server.asmx";
 	
 	public static String auth_email = null; // will be set when logged in
 	public static Booking current_booking = null;
